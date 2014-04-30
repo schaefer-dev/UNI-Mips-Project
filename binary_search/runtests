@@ -1,0 +1,24 @@
+#! /bin/sh
+set -eu
+
+SOURCES="testmain.asm util.asm binary_search.asm"
+
+NTEST=0
+NFAIL=0
+for I in tests/*.asm; do
+	NTEST=$(($NTEST + 1))
+	echo "===> $I"
+	if [ ! -f "${I%.asm}.ref" ]; then
+		echo "reference file missing"
+	elif RES=$(mars ae1 me nc sm 1000000 $SOURCES "$I"); then
+		if echo "$RES" | diff -u "${I%.asm}.ref" -; then
+			continue
+		fi
+	else
+		echo "MARS exited with status code $?"
+	fi
+	NFAIL=$(($NFAIL + 1))
+done
+echo '--------------------'
+echo "===> $NFAIL/$NTEST failed"
+[ "$NFAIL" -eq 0 ]
