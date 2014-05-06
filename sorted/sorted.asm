@@ -1,8 +1,9 @@
 	.text
 	.globl is_sorted
 is_sorted:
-	addiu $sp $sp -4	# Stack speichern
-	sb $ra 0($sp)
+
+	##addiu $sp $sp -4	# Stack speichern
+	##sb $ra 0($sp)
 
 	move $t5 $a0	# t5=a0
 	move $t6 $a1	# t6=a1
@@ -12,19 +13,19 @@ is_sorted:
 	lw $t1 0($t5) 		#t1 = erstes Element
 	lw $t2 4($t5)		#t2 = zweites Element
 	
-	lw $t3 0($t6) 
-	addiu $t3 $t3 -4	#t3 = letztes Element Anfang
+	move $t3 $t6 
+	addiu $t3 $t3 -4	#t3 = Anfang letztes Element
 	
 	
-	ble $t3 $t5 emptyOrOne  #anfang letztes Element <= Anfang erstes Element (Kein Element oder ein Element)  (vergleicht die Adressen)
+	ble $t3 $t5 emptyOrOne  #anfang letztes Element <= Anfang erstes Element
 	b	loop
 	
-emptyOrOne:
+emptyOrOne: # Leer oder Ein-elementig
 
 	li $v0 0	
 	b	finish
 
-cancel: 
+cancel: # Abbruchschleife -> nicht sortiert
 	addiu $t5 $t5 4 	#auf 2. Element der Vergleichsoperation springen
 	move 	$v0 $t5 
 	b 		finish
@@ -48,9 +49,12 @@ loop:
 	
 finish:	
 
-lw $ra 0($sp)
-addiu $sp $sp 4
+##lw $ra 0($sp)
+##addiu $sp $sp 4
+
+
 jr $ra
+
 
 
 # f??r Mengen nachher die Paare mit 1byte adresse des Nachfolgers + Wert
