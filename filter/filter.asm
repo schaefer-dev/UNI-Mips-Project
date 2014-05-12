@@ -15,44 +15,44 @@ move $s5 $a1	# s5 = Adresse des Unterprogramms
 	
 	
 	
-start:
-	beq $s4 $zero finish
+start: 
+	beq $s4 $zero finish #Jump finish
 	move $v0 $s4
 	move $s0 $s4		# s0 = Adresse des ersten Elements
 	addiu $s1 $s0 4		# s1 = Adresse des ersten Inhalts
 	
 	lw $s2 0($s0)		# s2 = Adresse des zweiten Elements
-	beq $s2 $zero onlyOne										# To Implement: nur ein Element
+	beq $s2 $zero onlyOne #Jump onlyOne
 	addiu $s3 $s2 4		# s3 = Adresse des zweiten Inhalts
 	
 	move $a0 $s1
 	jalr $s5
-	beq $v0 $zero deletefirst
+	beq $v0 $zero deletefirst #Jump deletefirst
 	
 	move $a0 $s3
 	jalr $s5
-	beq $v0 $zero deleteElement
+	beq $v0 $zero deleteElement #Jump deleteElement
 	
-	b next
+	b next #Jump next
 	
 	
 	
 deletefirst:
 	move $s4 $s2			# s4 ein Element weitersetzen und wieder erstes gültiges Element suchen
-	b start
+	b start #Jump start
 	
 	
 onlyOne:
 	move $a0 $s1
 	jalr $s5
-	beq $v0 $zero nothing
+	beq $v0 $zero nothing #Jump nothing
 	move $v0 $s0
-	b finish
+	b finish #Jump finish
 	
 	
 nothing:
 	move $v0 $zero
-	b finish
+	b finish #Jump finish
 	
 	
 next:	
@@ -64,15 +64,15 @@ next:
 	move $s0 $s2
 	move $s1 $s3
 	lw $s2 0($s0)
-	beq $s2 $zero finish	# Abbruch wenn 2. Element leer
+	beq $s2 $zero finish #Jump finish	# Abbruch wenn 2. Element leer
 	lw $s3 0($s0)
 	addiu $s3 $s3 4			# Adressen alle angepasst -> eins weiter
 	
 	move $a0 $s3			# Überprüfung 2. Element
 	jalr $s5
-	beq $v0 $zero deleteElement
+	beq $v0 $zero deleteElement #Jump deleteElement
 	
-	b next
+	b next #Jump next
 	
 	
 
@@ -84,14 +84,14 @@ deleteElement: #delete Element in s2
 		# s1 = Adresse des ersten Inhalts
 	
 	lw $s2 0($s0)		# s2 = Adresse des zweiten Elements
-	beq $s2 $zero finish						
+	beq $s2 $zero finish #Jump finish						
 	addiu $s3 $s2 4		# s3 = Adresse des zweiten Inhalts
 	
 	move $a0 $s3
 	jalr $s5
-	beq $v0 $zero deleteElement
+	beq $v0 $zero deleteElement #Jump deleteElement
 	
-	b next	
+	b next	#Jump next
 	
 	
 
