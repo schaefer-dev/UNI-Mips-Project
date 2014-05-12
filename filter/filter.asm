@@ -10,10 +10,10 @@ filter_list:
 	sw	$s5 20($sp)
 	sw 	$s6 24($sp)
 	sw	$ra 28($sp)
+	
 
 move $s4 $a0	# s4 = Adresse des Listenbeginns
 move $s5 $a1	# s5 = Adresse des Unterprogramms
-	
 	
 	
 start: 
@@ -23,6 +23,7 @@ start:
 	addiu $s1 $s0 4		# s1 = Adresse des ersten Inhalts
 	
 	lw $s2 0($s0)		# s2 = Adresse des zweiten Elements
+	
 	beq $s2 $zero onlyOne #Jump onlyOne
 	addiu $s3 $s2 4		# s3 = Adresse des zweiten Inhalts
 	
