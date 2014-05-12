@@ -1,14 +1,15 @@
 	.text
 	.globl filter_list
 filter_list:
-	addiu	$sp $sp -28
+	addiu	$sp $sp -32
 	sw	$s0 0($sp) 
 	sw	$s1 4($sp)
 	sw	$s2 8($sp)
 	sw	$s3 12($sp)
 	sw	$s4 16($sp)
 	sw	$s5 20($sp)
-	sw	$ra 24($sp)
+	sw 	$s6 24($sp)
+	sw	$ra 28($sp)
 
 move $s4 $a0	# s4 = Adresse des Listenbeginns
 move $s5 $a1	# s5 = Adresse des Unterprogramms
@@ -17,7 +18,7 @@ move $s5 $a1	# s5 = Adresse des Unterprogramms
 	
 start: 
 	beq $s4 $zero finish #Jump finish
-	move $v0 $s4
+	move $s6 $s4
 	move $s0 $s4		# s0 = Adresse des ersten Elements
 	addiu $s1 $s0 4		# s1 = Adresse des ersten Inhalts
 	
@@ -46,12 +47,12 @@ onlyOne:
 	move $a0 $s1
 	jalr $s5
 	beq $v0 $zero nothing #Jump nothing
-	move $v0 $s0
+	move $s6 $s0
 	b finish #Jump finish
 	
 	
 nothing:
-	move $v0 $zero
+	li $s6 0
 	b finish #Jump finish
 	
 	
@@ -97,12 +98,14 @@ deleteElement: #delete Element in s2
 
 
 finish:
+	move $v0 $s6
 	lw	$s0 0($sp) 
 	lw	$s1 4($sp)
 	lw	$s2 8($sp)
 	lw	$s3 12($sp)
 	lw	$s4 16($sp)
 	lw	$s5 20($sp)
-	lw	$ra 24($sp)
-	addiu	$sp $sp 28
+	lw 	$s6 24($sp)
+	lw	$ra 28($sp)
+	addiu	$sp $sp 32
 	jr $ra
