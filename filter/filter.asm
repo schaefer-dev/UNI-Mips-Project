@@ -67,8 +67,7 @@ next:
 	move $s1 $s3
 	lw $s2 0($s0)
 	beq $s2 $zero finish #Jump finish	# Abbruch wenn 2. Element leer
-	lw $s3 0($s0)
-	addiu $s3 $s3 4			# Adressen alle angepasst -> eins weiter
+	addiu $s3 $s2 4			# Adressen alle angepasst -> eins weiter
 	
 	move $a0 $s3			# Überprüfung 2. Element
 	jalr $s5
