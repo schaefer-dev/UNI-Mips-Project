@@ -1,4 +1,4 @@
-	.include "binary_search.asm"
+	.include "filter.asm"
 	.include "tests/filter_positive.asm"
 	.include "util.asm"
 

@@ -57,7 +57,6 @@ nothing:
 	
 next:	
 	
-	# zuerst Alle Zeiger eins Erhöhen mit Abfangen für letztes
 	# immer zweites!!! Element überprüfen ob enthalten
 	
 	move $t0 $s0
@@ -67,9 +66,9 @@ next:
 	lw $s2 0($s0)
 	beq $s2 $zero finish	# Abbruch wenn 2. Element leer
 	lw $s3 0($s0)
-	addiu $s3 $s3 4		# Adressen alle angepasst -> eins weiter
+	addiu $s3 $s3 4			# Adressen alle angepasst -> eins weiter
 	
-	move $a0 $s3
+	move $a0 $s3			# Überprüfung 2. Element
 	jalr $s5
 	beq $v0 $zero deleteElement
 	
