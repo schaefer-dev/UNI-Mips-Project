@@ -16,25 +16,9 @@ apply:
 loop:	
 	
 	lw $s2 0($s0)		# s2 = Adresse aufs Nachfolgeelement
-	lw $a0 4($s0)		# a0 = Inahlt des ersten Elements
-	
-	##
-	#sw	$s0 0($sp) 
-	#sw	$s1 4($sp)
-	#sw	$s2 8($sp)
-	#sw	$s3 12($sp)
-	#sw	$ra 16($sp)
-	##
-	
+	move $a0 $s0		# a0 = adresse des ersten Elements
+	addiu $a0 $a0 4
 	jalr $s1	
-	
-	##
-	#lw	$s0 0($sp)
-	#lw	$s1 4($sp)
-	#lw	$s2 8($sp)
-	#lw	$s3 12($sp)
-	#lw	$ra 16($sp)
-	##
 	
 	beq $s2 $zero finish	#Leere erste Adresse abfangen
 	move $s0 $s2	
