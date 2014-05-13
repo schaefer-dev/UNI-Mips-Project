@@ -2,8 +2,8 @@
 	.globl is_sorted
 is_sorted:
 
-	##addiu $sp $sp -4	# Stack speichern
-	##sb $ra 0($sp)
+	addiu $sp $sp -4	# Stack speichern
+	sw $ra 0($sp)
 
 	move $t5 $a0	# t5=a0
 	move $t6 $a1	# t6=a1
@@ -49,8 +49,8 @@ loop:
 	
 finish:	
 
-##lw $ra 0($sp)
-##addiu $sp $sp 4
+lw $ra 0($sp)
+addiu $sp $sp 4
 
 
 jr $ra
